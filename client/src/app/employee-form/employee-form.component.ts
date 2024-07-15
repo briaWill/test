@@ -90,14 +90,8 @@ export class EmployeeFormComponent {
   @Output()
   formSubmitted = new EventEmitter<Employee>();
 
-  employeeForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.minLength(3)]],
-    position: ['', [Validators.required, Validators.minLength(5)]],
-    level: ['junior', [Validators.required]],
-  });
-
   constructor(private formBuilder: FormBuilder) {
-    effect(() => {
+    effect(() => { formBuilder
       this.employeeForm.setValue({
         name: this.initialState()?.name || '',
         position: this.initialState()?.position || '',
@@ -105,6 +99,14 @@ export class EmployeeFormComponent {
       });
     });
   }
+
+  employeeForm = this.formBuilder.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    position: ['', [Validators.required, Validators.minLength(5)]],
+    level: ['junior', [Validators.required]],
+  });
+
+
 
   get name() {
     return this.employeeForm.get('name')!;
